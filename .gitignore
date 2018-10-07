@@ -1,0 +1,6 @@
+# 開発環境特有のファイル, フォルダを除外する。
+.idea
+.gradle/
+node_modules/
+build/
+src/main/resources/static/
