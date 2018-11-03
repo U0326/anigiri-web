@@ -1,0 +1,96 @@
+{
+  "year": 2018,
+  "cour": 4,
+  "animes": [
+    {
+      "title": "斉木楠雄のψ難01",
+      "sampling_tweet_count": 1000,
+      "gave_up_tweet_count": 10
+    },
+    {
+      "title": "ソードアート・オンライン01",
+      "sampling_tweet_count": 20,
+      "gave_up_tweet_count": 5
+    },
+    {
+      "title": "ゴブリンスレイヤ01",
+      "sampling_tweet_count": 100,
+      "gave_up_tweet_count": 20
+    },
+    {
+      "title": "斉木楠雄のψ難02",
+      "sampling_tweet_count": 1000,
+      "gave_up_tweet_count": 10
+    },
+    {
+      "title": "ソードアート・オンライン02",
+      "sampling_tweet_count": 20,
+      "gave_up_tweet_count": 5
+    },
+    {
+      "title": "ゴブリンスレイヤ02",
+      "sampling_tweet_count": 100,
+      "gave_up_tweet_count": 20
+    },
+    {
+      "title": "斉木楠雄のψ難",
+      "sampling_tweet_count": 1000,
+      "gave_up_tweet_count": 10
+    },
+    {
+      "title": "ソードアート・オンライン",
+      "sampling_tweet_count": 20,
+      "gave_up_tweet_count": 5
+    },
+    {
+      "title": "ゴブリンスレイヤ",
+      "sampling_tweet_count": 100,
+      "gave_up_tweet_count": 20
+    },
+    {
+      "title": "斉木楠雄のψ難",
+      "sampling_tweet_count": 1000,
+      "gave_up_tweet_count": 10
+    },
+    {
+      "title": "ソードアート・オンライン",
+      "sampling_tweet_count": 20,
+      "gave_up_tweet_count": 5
+    },
+    {
+      "title": "ゴブリンスレイヤ",
+      "sampling_tweet_count": 100,
+      "gave_up_tweet_count": 20
+    },
+    {
+      "title": "斉木楠雄のψ難",
+      "sampling_tweet_count": 1000,
+      "gave_up_tweet_count": 10
+    },
+    {
+      "title": "ソードアート・オンライン",
+      "sampling_tweet_count": 20,
+      "gave_up_tweet_count": 5
+    },
+    {
+      "title": "ゴブリンスレイヤ",
+      "sampling_tweet_count": 100,
+      "gave_up_tweet_count": 20
+    },
+    {
+      "title": "斉木楠雄のψ難",
+      "sampling_tweet_count": 1000,
+      "gave_up_tweet_count": 10
+    },
+    {
+      "title": "ソードアート・オンライン",
+      "sampling_tweet_count": 20,
+      "gave_up_tweet_count": 5
+    },
+    {
+      "title": "ゴブリンスレイヤ",
+      "sampling_tweet_count": 100,
+      "gave_up_tweet_count": 20
+    }
+  ]
+}

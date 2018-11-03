@@ -8,10 +8,9 @@ module.exports = {
     },
     module: {
         rules: [
-            {
-                test:/\.vue$/,
-                loader: 'vue-loader',
-            }
+            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            { test: /\.(woff|woff2|eot|ttf|svg)$/, loader: 'file-loader?name=../font/[name].[ext]' },
+            { test: /\.vue$/, loader: 'vue-loader' }
         ]
     }
 }
