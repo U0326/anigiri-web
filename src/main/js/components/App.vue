@@ -1,40 +1,44 @@
 <template>
     <div>
-        <anime-list />
-        <bar-graph :titleText="titleText" :chartData="dataCollection" />
+        <graph-navigation v-on:tab-event="changeGraphMode" :calculateLogics="calculateLogics" />
+        <bar-graph :calculateLogic="calculateLogic" :rowData="rowData" />
     </div>
 </template>
 
 <script>
-    import BarGraph from './BarGraph.vue'
+    import GraphNavigation from './GraphNavigation.vue';
+    import BarGraph from './BarGraph.vue';
+    import calculateLogics from './calculate_logics';
+
+    // TODO 以下ダミーデータの為、削除する必要あり。
     import dummy_data from '../../../test/resources/2018_04_cour.json'
+
     export default {
         data: function() {
             return {
-//              TODO 以下動的に値を設定する必要がある。
-                titleText: '2018年第4クールのアニメ一覧',
-                dataCollection: null
+                calculateLogics: null,
+                calculateLogic: null,
+                rowData: null
             }
         },
-        mounted: function() {
-            this.load();
+        beforeMount: function() {
+            this.init();
         },
         methods: {
-            load() {
-                let labels = [];
-                let data = [];
-                for (let anime of dummy_data['animes']) {
-                    labels.push(anime.title);
-                    data.push(anime.gave_up_tweet_count);
-                }
-
-                this.dataCollection = {
-                    labels: labels,
-                    datasets: [ {data: data} ]
-                }
+            init() {
+                this.calculateLogics = calculateLogics;
+                this.calculateLogic = calculateLogics[0];
+                // TODO 動的に値を設定する様に修正する。
+                this.rowData = dummy_data;
+            },
+            changeGraphMode: function(label) {
+                this.calculateLogic = calculateLogics.find(function(logic) {
+                    return logic.label === label;
+                });
             }
         },
         components: {
+            GraphNavigation,
             BarGraph
         }
     }

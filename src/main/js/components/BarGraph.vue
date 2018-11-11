@@ -3,7 +3,6 @@
 
     export default {
         extends: Bar,
-        mixins: [mixins.reactiveProp],
         data: function() {
             return {
                 options: {
@@ -12,13 +11,12 @@
                     },
                     title: {
                         display: true,
-                        text: this.titleText
+                        text: this.calculateLogic.description
                     },
                     scales: {
                         xAxes: [{
                             ticks:{
-                                autoSkip: false,
-                                maxTicksLimit: 2
+                                autoSkip: false
                             }
                         }],
                         yAxes: [{
@@ -27,21 +25,38 @@
                             }
                         }]
                     }
-                }
+                },
             }
         },
-        props: ['chartData', 'titleText'],
+        props: ['rowData', 'calculateLogic'],
         watch: {
-            'titleText': {
-                handler(newTitleText, oldTitleText) {
+            'calculateLogic': {
+                handler(newValue, oldValue) {
                     let newOptions = Object.assign({}, JSON.parse(JSON.stringify(this.options)));
-                    newOptions.title.text = newTitleText;
-                    this.renderChart(this.chartData, newOptions);
+                    newOptions.title.text = newValue.description;
+                    this.renderChart(this.prepareData(this.rowData), newOptions);
                 }
             }
         },
         mounted: function() {
-            this.renderChart(this.chartData, this.options)
+            this.renderChart(this.prepareData(this.rowData), this.options)
+        },
+        methods: {
+            prepareData(rowData) {
+                let sortedData = this.rowData.animes.sort(this.calculateLogic.takeSortedLogic);
+
+                let labels = [];
+                let data = [];
+                for (let element of sortedData) {
+                    labels.push(element.title);
+                    data.push(this.calculateLogic.calculate(element));
+                }
+
+                return {
+                    labels: labels,
+                    datasets: [ {data: data} ]
+                }
+            }
         }
     }
 </script>
