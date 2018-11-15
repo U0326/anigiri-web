@@ -1,22 +1,28 @@
 <script>
-    import { Bar, mixins } from 'vue-chartjs'
+    import { Bar } from 'vue-chartjs'
+    import zoom from 'chartjs-plugin-zoom';
+
+    const MAXIMUM_DISPLAY_COUNT = 8;
 
     export default {
         extends: Bar,
         data: function() {
             return {
+                // TODO 以下をdataで持つ意味がない。別ファイルに切り出したい。
                 options: {
                     legend: {
                         display: false
                     },
                     title: {
                         display: true,
-                        text: this.calculateLogic.description
+                        text: null
                     },
                     scales: {
                         xAxes: [{
                             ticks:{
-                                autoSkip: false
+                                autoSkip: false,
+                                min: null,
+                                max: null
                             }
                         }],
                         yAxes: [{
@@ -24,38 +30,59 @@
                                 min: 0,
                             }
                         }]
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'x',
+                    },
+                    zoom: {
+                        enabled: true,
+                        mode: ''
                     }
-                },
+                }
             }
         },
         props: ['rowData', 'calculateLogic'],
+        mounted: function() {
+            this.addPlugin(zoom);
+            this.callRenderChart(this.rowData);
+        },
         watch: {
             'calculateLogic': {
                 handler(newValue, oldValue) {
-                    let newOptions = Object.assign({}, JSON.parse(JSON.stringify(this.options)));
-                    newOptions.title.text = newValue.description;
-                    this.renderChart(this.prepareData(this.rowData), newOptions);
+                    this.callRenderChart(this.rowData);
                 }
             }
         },
-        mounted: function() {
-            this.renderChart(this.prepareData(this.rowData), this.options)
-        },
         methods: {
-            prepareData(rowData) {
-                let sortedData = this.rowData.animes.sort(this.calculateLogic.takeSortedLogic);
+            callRenderChart(rowData) {
+                let sortedData = this.rowData.animes.sort(this.calculateLogic.takeSortLogic);
+                let resultChartData = this.prepareData(sortedData);
+                let resultOptions = this.prepareOptions(sortedData);
 
-                let labels = [];
-                let data = [];
+                this.renderChart(resultChartData, resultOptions);
+            },
+            prepareData(sortedData) {
+                let resultLabels = [];
+                let resultData = [];
                 for (let element of sortedData) {
-                    labels.push(element.title);
-                    data.push(this.calculateLogic.calculate(element));
+                    resultLabels.push(element.title);
+                    resultData.push(this.calculateLogic.calculate(element));
                 }
 
                 return {
-                    labels: labels,
-                    datasets: [ {data: data} ]
+                    labels: resultLabels,
+                    datasets: [ {data: resultData} ]
                 }
+            },
+            prepareOptions(sortedData) {
+                let newOptions = Object.assign({}, JSON.parse(JSON.stringify(this.options)));
+                newOptions.title.text = this.calculateLogic.description;
+
+                newOptions.scales.xAxes[0].ticks.min = sortedData[0].title;
+                newOptions.scales.xAxes[0].ticks.max = sortedData[MAXIMUM_DISPLAY_COUNT - 1].title;
+
+                return newOptions;
             }
         }
     }
