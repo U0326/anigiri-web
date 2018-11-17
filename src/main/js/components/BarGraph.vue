@@ -31,6 +31,10 @@
                             }
                         }]
                     },
+                    onClick: function (event, element) {
+                        if (!element || element.length === 0) return;
+                        console.log(element[0]._model.label);
+                    },
                     pan: {
                         enabled: true,
                         mode: 'x',
@@ -76,7 +80,7 @@
                 }
             },
             prepareOptions(sortedData) {
-                let newOptions = Object.assign({}, JSON.parse(JSON.stringify(this.options)));
+                let newOptions = this.options;
                 newOptions.title.text = this.calculateLogic.description;
 
                 newOptions.scales.xAxes[0].ticks.min = sortedData[0].title;
