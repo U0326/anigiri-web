@@ -31,10 +31,7 @@
                             }
                         }]
                     },
-                    onClick: function (event, element) {
-                        if (!element || element.length === 0) return;
-                        console.log(element[0]._model.label);
-                    },
+                    onClick: null,
                     pan: {
                         enabled: true,
                         mode: 'x',
@@ -49,11 +46,12 @@
         props: ['rowData', 'calculateLogic'],
         mounted: function() {
             this.addPlugin(zoom);
+            this.options.onClick = this.showDetailGraph;
             this.callRenderChart(this.rowData);
         },
         watch: {
             'calculateLogic': {
-                handler(newValue, oldValue) {
+                handler() {
                     this.callRenderChart(this.rowData);
                 }
             }
@@ -87,6 +85,13 @@
                 newOptions.scales.xAxes[0].ticks.max = sortedData[MAXIMUM_DISPLAY_COUNT - 1].title;
 
                 return newOptions;
+            },
+            showDetailGraph(event, element) {
+                if (!element || element.length === 0) return;
+                let id = this.rowData.animes.find(function(anime) {
+                    return anime.title === element[0]._model.label;
+                }).id;
+                this.$router.push('/detail/' + id);
             }
         }
     }
