@@ -26,6 +26,7 @@
     "chartjs-plugin-zoom": "^0.6.5",
     "element-ui": "^2.4.9",
     "file-loader": "^2.0.0",
-    "vue-chartjs": "^3.4.0"
+    "vue-chartjs": "^3.4.0",
+    "vue-router": "^3.0.1"
   }
 }
