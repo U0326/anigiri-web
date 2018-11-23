@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <nav>アニメリストをここに表示する。</nav>
+            <cour-navigation />
         </div>
         <div>
             <router-view />
@@ -9,3 +9,12 @@
     </div>
 </template>
 
+<script>
+    import CourNavigation from './CourNavigation.vue';
+
+    export default {
+        components: {
+            CourNavigation
+        }
+    }
+</script>

@@ -6,6 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import router from './router.js'
 
+Vue.use(ElementUI, {locale})
 window.onload = function() {
     Vue.use(ElementUI);
     new Vue({
