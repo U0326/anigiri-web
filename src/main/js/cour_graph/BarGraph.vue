@@ -8,7 +8,6 @@
         extends: Bar,
         data: function() {
             return {
-                graphRowData: this.$store.state.graphRowData,
                 // TODO 以下をdataで持つ意味がない。別ファイルに切り出したい。
                 options: {
                     legend: {
@@ -44,6 +43,10 @@
                 }
             }
         },
+        computed: {
+            graphRowData() {return this.$store.state.graphRowData},
+            animeListId() {return this.$store.state.animeListId}
+        },
         props: ['calculateLogic'],
         mounted: function() {
             this.addPlugin(zoom);
@@ -51,10 +54,11 @@
             this.callRenderChart(this.graphRowData);
         },
         watch: {
-            'calculateLogic': {
-                handler() {
-                    this.callRenderChart(this.graphRowData);
-                }
+            'calculateLogic': function() {
+                this.callRenderChart(this.graphRowData);
+            },
+            'animeListId': function() {
+                this.callRenderChart(this.graphRowData);
             }
         },
         methods: {

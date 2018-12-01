@@ -1,0 +1,72 @@
+{
+  "year": 2018,
+  "cour": 4,
+  "animes": [
+    {
+      "id": 1,
+      "title": "オーバーロード01",
+      "sampling_tweet_count": 105,
+      "gave_up_tweet_count": 105
+    },
+    {
+      "id": 2,
+      "title": "オーバーロード02",
+      "sampling_tweet_count": 104,
+      "gave_up_tweet_count": 104
+    },
+    {
+      "id": 3,
+      "title": "オーバーロード03",
+      "sampling_tweet_count": 103,
+      "gave_up_tweet_count": 103
+    },
+    {
+      "id": 4,
+      "title": "オーバーロード04",
+      "sampling_tweet_count": 102,
+      "gave_up_tweet_count": 102
+    },
+    {
+      "id": 5,
+      "title": "オーバーロード05",
+      "sampling_tweet_count": 101,
+      "gave_up_tweet_count": 101
+    },
+    {
+      "id": 6,
+      "title": "オーバーロード06",
+      "sampling_tweet_count": 105,
+      "gave_up_tweet_count": 105
+    },
+    {
+      "id": 7,
+      "title": "オーバーロード07",
+      "sampling_tweet_count": 104,
+      "gave_up_tweet_count": 104
+    },
+    {
+      "id": 8,
+      "title": "オーバーロード08",
+      "sampling_tweet_count": 103,
+      "gave_up_tweet_count": 103
+    },
+    {
+      "id": 9,
+      "title": "オーバーロード09",
+      "sampling_tweet_count": 102,
+      "gave_up_tweet_count": 102
+    },
+    {
+      "id": 10,
+      "title": "オーバーロード10",
+      "sampling_tweet_count": 101,
+      "gave_up_tweet_count": 101
+    },
+    {
+      "id": 11,
+      "title": "オーバーロード11",
+      "sampling_tweet_count": 100,
+      "gave_up_tweet_count": 100
+    }
+  ]
+}

@@ -2,11 +2,14 @@ import 'babel-polyfill'
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import {createAnimeListId} from './util.js';
+
 // TODO 以下ダミーデータの為、削除する必要あり。
 import cours from '../../test/resources/cours.json';
-import graphRowData from '../../test/resources/2018_04_cour.json'
+import dummyData from '../../test/resources/2018_04_cour.json'
 
 Vue.use(Vuex);
+let graphRowData;
 const store = new Vuex.Store({
     state: {
         sortedCours: (function() {
@@ -29,14 +32,20 @@ const store = new Vuex.Store({
             });
             return yearAndCourSorted;
         }()),
-        courNavigationId: null,
-        graphRowData: (function(){
+        graphRowData: (function() {
+            graphRowData = dummyData;
             return graphRowData;
+        }()),
+        animeListId: (function() {
+            return createAnimeListId(graphRowData);
         }())
     },
     mutations: {
         updateGraphRowData: function(state, payload) {
             state.graphRowData = payload;
+        },
+        updateAnimeListId: function(state, payload) {
+            state.animeListId = payload;
         }
     }
 })

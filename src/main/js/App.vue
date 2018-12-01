@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <cour-navigation />
+            <anime-list />
         </div>
         <div>
             <router-view />
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-    import CourNavigation from './CourNavigation.vue';
+    import AnimeList from './AnimeList.vue';
 
     export default {
         components: {
-            CourNavigation
+            AnimeList
         }
     }
 </script>
