@@ -8,6 +8,7 @@
         extends: Bar,
         data: function() {
             return {
+                graphRowData: this.$store.state.graphRowData,
                 // TODO 以下をdataで持つ意味がない。別ファイルに切り出したい。
                 options: {
                     legend: {
@@ -43,22 +44,22 @@
                 }
             }
         },
-        props: ['rowData', 'calculateLogic'],
+        props: ['calculateLogic'],
         mounted: function() {
             this.addPlugin(zoom);
             this.options.onClick = this.showDetailGraph;
-            this.callRenderChart(this.rowData);
+            this.callRenderChart(this.graphRowData);
         },
         watch: {
             'calculateLogic': {
                 handler() {
-                    this.callRenderChart(this.rowData);
+                    this.callRenderChart(this.graphRowData);
                 }
             }
         },
         methods: {
-            callRenderChart(rowData) {
-                let sortedData = this.rowData.animes.sort(this.calculateLogic.takeSortLogic);
+            callRenderChart(graphRowData) {
+                let sortedData = this.graphRowData.animes.sort(this.calculateLogic.takeSortLogic);
                 let resultChartData = this.prepareData(sortedData);
                 let resultOptions = this.prepareOptions(sortedData);
 
@@ -88,7 +89,7 @@
             },
             showDetailGraph(event, element) {
                 if (!element || element.length === 0) return;
-                let id = this.rowData.animes.find(function(anime) {
+                let id = this.graphRowData.animes.find(function(anime) {
                     return anime.title === element[0]._model.label;
                 }).id;
                 this.$router.push('/detail/' + id);

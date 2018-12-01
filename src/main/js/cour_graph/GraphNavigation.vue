@@ -14,12 +14,18 @@
 </template>
 
 <script>
+    import calculateLogics from './calculate_logics';
+
     export default {
-        props: ['calculateLogics'],
         data: function() {
             return {
-                tabPosition: this.calculateLogics[0].label
+                calculateLogics: null,
+                tabPosition: null
             }
+        },
+        mounted: function() {
+            this.calculateLogics = calculateLogics;
+            this.tabPosition = this.calculateLogics[0].label
         },
         computed: {
             // TODO 以下動的に取得できるようにする必要がある。

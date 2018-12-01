@@ -22,11 +22,13 @@
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "chart.js": "^2.7.3",
     "chartjs-plugin-zoom": "^0.6.5",
     "element-ui": "^2.4.9",
     "file-loader": "^2.0.0",
     "vue-chartjs": "^3.4.0",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   }
 }
