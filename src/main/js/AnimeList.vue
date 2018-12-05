@@ -4,9 +4,7 @@
 </template>
 
 <script>
-    // TODO 以下ダミーデータの為、削除する必要あり。
-    import dummyData01 from '../../test/resources/2018_04_cour.json';
-    import dummyData02 from '../../test/resources/20xx_xx_cour.json';
+    import { createCourLabel } from './util.js';
     export default {
         data: function() {
             return {
@@ -27,6 +25,11 @@
             this.expandedKeys = [this.$route.params.year,
                     this.$route.params.year + '-' + this.$route.params.cour];
         },
+        watch: {
+            'currentAnimeListId': function() {
+                this.$refs.tree.setCurrentKey(this.currentAnimeListId);
+            }
+        },
         methods: {
             loadNodes: function(node, resolve) {
                 if (node.level === 0) {
@@ -38,9 +41,7 @@
                     return resolve(this.treeNodes.find(function(element) {
                         return element.year === node.data.id;
                     }).cours.map(function(element) {
-                        return {id: node.data.id + '-' + element,
-                                label: '第' + element + 'クール(' + (1 + 3 * (element - 1)) + '月〜' +
-                                (3 + 3 * (element - 1)) + '月)'};
+                        return {id: node.data.id + '-' + element, label: createCourLabel(element)}
                     }));
                 }
                 if (node.level === 2) {
@@ -54,22 +55,10 @@
                 }
             },
             pullAndUpdateData: function(animeId) {
-                if (animeId == this.currentAnimeListId) {
-                    return this.$store.state.graphRowData;
+                if (animeId != this.currentAnimeListId) {
+                    this.$store.commit('updateBasedOnAnimeListId', animeId);
                 }
-
-                // TODO JSONを取得する処理を追加する。
-                // ---------------- 検証用 -----------------
-                let graphRowData;
-                if (animeId == '2018-4') {
-                    graphRowData = dummyData01;
-                } else {
-                    graphRowData = dummyData02;
-                }
-                // ---------------- 検証用 -----------------
-                this.$store.commit('updateGraphRowData', graphRowData);
-                this.$store.commit('updateAnimeListId', animeId);
-                return graphRowData;
+                return this.$store.state.graphRowData;
             },
             handleNodeClick: function(node) {
                 let delimiterCount = String(node.id).split('-').length - 1;

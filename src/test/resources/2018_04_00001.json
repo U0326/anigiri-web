@@ -1,0 +1,28 @@
+{
+  "year": 2018,
+  "cour": 4,
+  "animeId": 1,
+  "title": "斉木楠雄の災難",
+  "results": [
+    {
+      "sampling_tweet_count": 105,
+      "gave_up_tweet_count": 105,
+      "tweeted_date": "2018-01-01"
+    },
+    {
+      "sampling_tweet_count": 106,
+      "gave_up_tweet_count": 106,
+      "tweeted_date": "2018-01-02"
+    },
+    {
+      "sampling_tweet_count": 107,
+      "gave_up_tweet_count": 107,
+      "tweeted_date": "2018-01-03"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-04"
+    }
+  ]
+}

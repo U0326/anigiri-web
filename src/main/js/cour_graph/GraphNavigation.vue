@@ -2,7 +2,7 @@
     <div>
         <div>
             <el-button v-if="hasNext" type="primary" icon="el-icon-arrow-left">次のクール</el-button>
-            <span> 2018年第4クール(10月〜12月)のアニメ </span>
+            <span>{{ graphTitle }}</span>
             <el-button type="primary">前のクール<i class="el-icon-arrow-right el-icon-right"></i></el-button>
         </div>
         <div>
@@ -30,10 +30,13 @@
         computed: {
             // TODO 以下動的に取得できるようにする必要がある。
             hasNext: function() {
-                return false
+                return false;
             },
             hasPrev: function() {
-                return true
+                return true;
+            },
+            graphTitle: function() {
+                return this.$store.state.graphTitle;
             }
         },
         watch: {

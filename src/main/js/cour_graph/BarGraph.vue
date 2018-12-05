@@ -1,9 +1,11 @@
 <script>
     import { Bar } from 'vue-chartjs'
     import zoom from 'chartjs-plugin-zoom';
+    import { createAnimeListId } from '../util.js';
 
     const MAXIMUM_DISPLAY_COUNT = 8;
 
+    // TODO 各クールのグラフと各アニメのグラフで、本コンポーネントを共用することを検討する。
     export default {
         extends: Bar,
         data: function() {
@@ -96,6 +98,8 @@
                 let id = this.graphRowData.animes.find(function(anime) {
                     return anime.title === element[0]._model.label;
                 }).id;
+                this.$store.commit('updateBasedOnAnimeListId',
+                        createAnimeListId(this.graphRowData) + '-' + id);
                 this.$router.push('/detail/' + id);
             }
         }
