@@ -19,15 +19,27 @@
         },
         computed: {
             treeNodes() {return this.$store.state.sortedCours},
-            currentAnimeListId() {return this.$store.state.animeListId}
+            currentAnimeListId() {return this.$store.state.animeListId},
+            paths() {return [this.pathYear, this.pathCour, this.pathAnimeId]},
+            pathYear() {return this.$route.params.year },
+            pathCour() {return this.$route.params.cour},
+            pathAnimeId() {return this.$route.params.animeId},
         },
         mounted: function() {
-            this.expandedKeys = [this.$route.params.year,
-                    this.$route.params.year + '-' + this.$route.params.cour];
+            this.expandedKeys = [this.pathYear, this.pathYear + '-' + this.pathCour ];
         },
         watch: {
             'currentAnimeListId': function() {
                 this.$refs.tree.setCurrentKey(this.currentAnimeListId);
+            },
+            'paths': function() {
+                this.expandedKeys = [this.pathYear, this.pathYear + '-' + this.pathCour ];
+
+                let animeId = this.pathYear + '-' + this.pathCour;
+                if (this.pathAnimeId) {
+                    animeId += '-' + this.pathAnimeId;
+                }
+                this.$store.commit('updateBasedOnAnimeListId', animeId);
             }
         },
         methods: {
@@ -70,7 +82,7 @@
                 }
                 // '年'-'クール'-'animeId'を表すノードがクリックされた場合、各アニメのグラフ表示画面に遷移する。
                 if (delimiterCount === 2) {
-                    this.$router.push('/detail/' + node.id.split('-')[2]);
+                    this.$router.push('/detail/' + node.id.replace(/-/g, '/'));
                 }
 
                 this.pullAndUpdateData(node.id);

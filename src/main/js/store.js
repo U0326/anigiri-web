@@ -28,6 +28,7 @@ function fetchGraphRowData(animeListId) {
             return dummyData02;
         }
     } else {
+        // 初回表示時
         // TODO 今期のデータを取得する。
         return dummyData01;
     }

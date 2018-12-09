@@ -74,6 +74,8 @@
         },
         methods: {
             callRenderChart(graphRowData) {
+                // クール毎のgraphRowDataが用意できていない場合はスキップする。戻るボタン押下直後などが該当する。
+                if (!this.graphRowData.animes) return;
                 // TODO 各アニメ個別のグラフはソートしない。
                 let sortedData = this.graphRowData.animes.sort(this.calculateLogic.takeSortLogic);
                 let resultChartData = this.prepareData(sortedData);
@@ -109,9 +111,9 @@
                 let id = this.graphRowData.animes.find(function(anime) {
                     return anime.title === element[0]._model.label;
                 }).id;
-                this.$store.commit('updateBasedOnAnimeListId',
-                        createAnimeListId(this.graphRowData) + '-' + id);
-                this.$router.push('/detail/' + id);
+                let updatingAnimeListId = createAnimeListId(this.graphRowData) + '-' + id;
+                this.$store.commit('updateBasedOnAnimeListId', updatingAnimeListId);
+                this.$router.push('/detail/' + updatingAnimeListId.replace(/-/g, '/'));
             }
         }
     }
