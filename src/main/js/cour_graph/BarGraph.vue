@@ -2,15 +2,14 @@
     import { Bar } from 'vue-chartjs'
     import zoom from 'chartjs-plugin-zoom';
     import { createAnimeListId } from '../util.js';
+    import calculateLogics from './calculate_logics';
 
     const MAXIMUM_DISPLAY_COUNT = 8;
 
-    // TODO 各クールのグラフと各アニメのグラフで、本コンポーネントを共用することを検討する。
     export default {
         extends: Bar,
         data: function() {
             return {
-                // TODO 以下をdataで持つ意味がない。別ファイルに切り出したい。
                 options: {
                     legend: {
                         display: false
@@ -21,6 +20,7 @@
                     },
                     scales: {
                         xAxes: [{
+                            // TODO 各アニメ個別のグラフはx軸がdateである。
                             ticks:{
                                 autoSkip: false,
                                 min: null,
@@ -46,13 +46,22 @@
             }
         },
         computed: {
-            graphRowData() {return this.$store.state.graphRowData},
-            animeListId() {return this.$store.state.animeListId}
+            graphRowData() {
+                return this.$store.state.graphRowData
+            },
+            animeListId() {
+                return this.$store.state.animeListId
+            },
+            calculateLogic() {
+                return calculateLogics.find((logic) => {
+                    return logic.label === this.$store.state.currentDisplayMethod;
+                });
+
+            }
         },
-        props: ['calculateLogic'],
         mounted: function() {
             this.addPlugin(zoom);
-            this.options.onClick = this.showDetailGraph;
+            this.options.onClick = this.handleClick;
             this.callRenderChart(this.graphRowData);
         },
         watch: {
@@ -65,6 +74,7 @@
         },
         methods: {
             callRenderChart(graphRowData) {
+                // TODO 各アニメ個別のグラフはソートしない。
                 let sortedData = this.graphRowData.animes.sort(this.calculateLogic.takeSortLogic);
                 let resultChartData = this.prepareData(sortedData);
                 let resultOptions = this.prepareOptions(sortedData);
@@ -75,6 +85,7 @@
                 let resultLabels = [];
                 let resultData = [];
                 for (let element of sortedData) {
+                    // TODO 各アニメ個別のグラフはYY-mm-dd
                     resultLabels.push(element.title);
                     resultData.push(this.calculateLogic.calculate(element));
                 }
@@ -93,7 +104,7 @@
 
                 return newOptions;
             },
-            showDetailGraph(event, element) {
+            handleClick(event, element) {
                 if (!element || element.length === 0) return;
                 let id = this.graphRowData.animes.find(function(anime) {
                     return anime.title === element[0]._model.label;

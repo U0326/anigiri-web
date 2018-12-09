@@ -1,7 +1,7 @@
 <template>
     <div>
-        <graph-navigation v-on:tab-event="changeGraphMode" />
-        <bar-graph :calculateLogic="calculateLogic" />
+        <graph-navigation />
+        <bar-graph />
     </div>
 </template>
 
@@ -11,23 +11,6 @@
     import calculateLogics from './calculate_logics';
 
     export default {
-        data: function() {
-            return {
-                calculateLogics: null,
-                calculateLogic: null,
-            }
-        },
-        beforeMount: function() {
-            this.calculateLogics = calculateLogics;
-            this.calculateLogic = calculateLogics[0];
-        },
-        methods: {
-            changeGraphMode: function(label) {
-                this.calculateLogic = calculateLogics.find(function(logic) {
-                    return logic.label === label;
-                });
-            }
-        },
         components: {
             GraphNavigation,
             BarGraph

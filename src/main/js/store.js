@@ -4,12 +4,15 @@ import Vuex from 'vuex';
 
 import { createAnimeListId, createCourLabel } from './util.js';
 
-// TODO 以下ダミーデータの為、削除する必要あり。
+// TODO 以下ダミーデータの為、削除する必要あり。↓
 import dummyData01 from '../../test/resources/2018_04_cour.json';
 import dummyData02 from '../../test/resources/20xx_xx_cour.json';
 import dummyData03 from '../../test/resources/2018_04_00001.json';
 import cours from '../../test/resources/cours.json';
 import dummyData from '../../test/resources/2018_04_cour.json'
+// TODO 以下ダミーデータの為、削除する必要あり。↑
+
+import calculateLogics from './cour_graph/calculate_logics';
 
 Vue.use(Vuex);
 
@@ -41,6 +44,7 @@ function createGraphTitle(graphRowData) {
 let graphRowData;
 const store = new Vuex.Store({
     state: {
+        currentDisplayMethod: calculateLogics[0].label,
         sortedCours: (function() {
             let yearSorted = cours.term.sort(function(x, y) {
                 // 年に関して、降順にソートする。
@@ -73,6 +77,9 @@ const store = new Vuex.Store({
         graphTitle: createGraphTitle(graphRowData)
     },
     mutations: {
+        updateCurrentDisplayMethod: function(state, payload) {
+            state.currentDisplayMethod = payload;
+        },
         updateBasedOnAnimeListId: function(state, payload) {
             let newAnimeListId = payload;
             let graphRowData = fetchGraphRowData(newAnimeListId);
