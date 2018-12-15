@@ -3,7 +3,7 @@
   "cour": 4,
   "animeId": 1,
   "title": "斉木楠雄の災難",
-  "results": [
+  "data": [
     {
       "sampling_tweet_count": 105,
       "gave_up_tweet_count": 105,
@@ -23,6 +23,161 @@
       "sampling_tweet_count": 108,
       "gave_up_tweet_count": 108,
       "tweeted_date": "2018-01-04"
+    },
+    {
+      "sampling_tweet_count": 105,
+      "gave_up_tweet_count": 105,
+      "tweeted_date": "2018-01-05"
+    },
+    {
+      "sampling_tweet_count": 106,
+      "gave_up_tweet_count": 106,
+      "tweeted_date": "2018-01-06"
+    },
+    {
+      "sampling_tweet_count": 107,
+      "gave_up_tweet_count": 107,
+      "tweeted_date": "2018-01-07"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-08"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-09"
+    },
+    {
+      "sampling_tweet_count": 107,
+      "gave_up_tweet_count": 107,
+      "tweeted_date": "2018-01-10"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-11"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-12"
+    },
+    {
+      "sampling_tweet_count": 105,
+      "gave_up_tweet_count": 105,
+      "tweeted_date": "2018-01-13"
+    },
+    {
+      "sampling_tweet_count": 106,
+      "gave_up_tweet_count": 106,
+      "tweeted_date": "2018-01-14"
+    },
+    {
+      "sampling_tweet_count": 107,
+      "gave_up_tweet_count": 107,
+      "tweeted_date": "2018-01-15"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-16"
+    },
+    {
+      "sampling_tweet_count": 105,
+      "gave_up_tweet_count": 105,
+      "tweeted_date": "2018-01-17"
+    },
+    {
+      "sampling_tweet_count": 106,
+      "gave_up_tweet_count": 106,
+      "tweeted_date": "2018-01-18"
+    },
+    {
+      "sampling_tweet_count": 107,
+      "gave_up_tweet_count": 107,
+      "tweeted_date": "2018-01-19"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-20"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-21"
+    },
+    {
+      "sampling_tweet_count": 107,
+      "gave_up_tweet_count": 107,
+      "tweeted_date": "2018-01-22"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-23"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-24"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-25"
+    },
+    {
+      "sampling_tweet_count": 105,
+      "gave_up_tweet_count": 105,
+      "tweeted_date": "2018-01-26"
+    },
+    {
+      "sampling_tweet_count": 106,
+      "gave_up_tweet_count": 106,
+      "tweeted_date": "2018-01-27"
+    },
+    {
+      "sampling_tweet_count": 107,
+      "gave_up_tweet_count": 107,
+      "tweeted_date": "2018-01-28"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-01-29"
+    },
+    {
+      "sampling_tweet_count": 105,
+      "gave_up_tweet_count": 105,
+      "tweeted_date": "2018-01-30"
+    },
+    {
+      "sampling_tweet_count": 106,
+      "gave_up_tweet_count": 106,
+      "tweeted_date": "2018-01-31"
+    },
+    {
+      "sampling_tweet_count": 107,
+      "gave_up_tweet_count": 107,
+      "tweeted_date": "2018-02-01"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-02-02"
+    },
+    {
+      "sampling_tweet_count": 108,
+      "gave_up_tweet_count": 108,
+      "tweeted_date": "2018-02-03"
+    },
+    {
+      "sampling_tweet_count": 107,
+      "gave_up_tweet_count": 107,
+      "tweeted_date": "2018-02-04"
     }
   ]
 }

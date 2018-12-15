@@ -1,3 +1,45 @@
-<template>
-    <h1>ABCDEFG</h1>
-</template>
+<script>
+    import BarGraph from '../graph_common/BarGraph.vue';
+
+    const MAXIMUM_DISPLAY_COUNT = 30;
+    export default {
+        extends: BarGraph,
+        methods: {
+            isReadyData(graphRowData) {
+                return Boolean(graphRowData.data);
+            },
+            sortData(graphRowData) {
+                return this.graphRowData.data.sort(function(a, b) {
+                    if (a.tweeted_date > b.tweeted_date) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                });
+            },
+            prepareData(sortedData) {
+                let labels = [];
+                let data = [];
+                for (let element of sortedData) {
+                    labels.push(element.tweeted_date);
+                    data.push(this.calculateLogic.calculate(element));
+                }
+                return {
+                    labels: labels,
+                    datasets: [ {data: data} ]
+                }
+            },
+            appendOptions(chartData, newOptions) {
+                newOptions.scales.xAxes[0].type = 'time';
+                newOptions.scales.xAxes[0].time = {
+                    autoSkip: false,
+                    unit: 'day',
+                    displayFormats: { day: 'M/D' },
+                    min: chartData.labels[0],
+                    max: chartData.labels[MAXIMUM_DISPLAY_COUNT]
+                };
+                return newOptions;
+            },
+        }
+    }
+</script>

@@ -1,6 +1,6 @@
 export default {
     title: '公式ハッシュタグツイート',
-    description: '公式ハッシュタグでのツイート数',
+    description: '公式ハッシュタグでヒットしたツイート数',
     label: 'hash_tag',
     takeSortLogic: function(a, b) {
         if (a.sampling_tweet_count < b.sampling_tweet_count) {

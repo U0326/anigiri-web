@@ -4,7 +4,7 @@
 </template>
 
 <script>
-    import { createCourLabel } from './util.js';
+    import { createCourLabel } from '../util.js';
     export default {
         data: function() {
             return {

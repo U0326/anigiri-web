@@ -12,7 +12,7 @@ import cours from '../../test/resources/cours.json';
 import dummyData from '../../test/resources/2018_04_cour.json'
 // TODO 以下ダミーデータの為、削除する必要あり。↑
 
-import calculateLogics from './cour_graph/calculate_logics';
+import calculateLogics from './graph_common/calculate_logics';
 
 Vue.use(Vuex);
 
@@ -42,6 +42,7 @@ function createGraphTitle(graphRowData) {
     }
 }
 
+// TODO 削除出来ないか検討する。利用個所はstate中のanimeListId, graphTitleである。
 let graphRowData;
 const store = new Vuex.Store({
     state: {
