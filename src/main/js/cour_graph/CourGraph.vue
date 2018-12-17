@@ -39,7 +39,6 @@
                     return anime.title === element[0]._model.label;
                 }).id;
                 let updatingAnimeListId = createAnimeListId(this.graphRowData) + '-' + id;
-                this.$store.commit('updateBasedOnAnimeListId', updatingAnimeListId);
                 this.$router.push('/detail/' + updatingAnimeListId.replace(/-/g, '/'));
             }
         }

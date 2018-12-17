@@ -84,6 +84,7 @@ const store = new Vuex.Store({
         },
         updateBasedOnAnimeListId: function(state, payload) {
             let newAnimeListId = payload;
+            if (state.animeListId == newAnimeListId) return;
             let graphRowData = fetchGraphRowData(newAnimeListId);
 
             state.animeListId = newAnimeListId;

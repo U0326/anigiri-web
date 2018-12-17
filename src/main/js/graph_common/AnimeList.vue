@@ -4,16 +4,12 @@
 </template>
 
 <script>
+    import dummyData01 from '../../../test/resources/2018_04_cour.json';
     import { createCourLabel } from '../util.js';
     export default {
         data: function() {
             return {
-                props: {
-                    id: 'id',
-                    label: 'label',
-                    children: 'children',
-                    isLeaf: 'isLeaf',
-                },
+                props: { id: 'id', label: 'label', children: 'children', isLeaf: 'isLeaf' },
                 expandedKeys: null,
             }
         },
@@ -27,6 +23,7 @@
         },
         mounted: function() {
             this.expandedKeys = [this.pathYear, this.pathYear + '-' + this.pathCour ];
+            this.updateAnimeListIdFromPath();
         },
         watch: {
             'currentAnimeListId': function() {
@@ -34,15 +31,11 @@
             },
             'paths': function() {
                 this.expandedKeys = [this.pathYear, this.pathYear + '-' + this.pathCour ];
-
-                let animeId = this.pathYear + '-' + this.pathCour;
-                if (this.pathAnimeId) {
-                    animeId += '-' + this.pathAnimeId;
-                }
-                this.$store.commit('updateBasedOnAnimeListId', animeId);
+                this.updateAnimeListIdFromPath();
             }
         },
         methods: {
+            // ツリー要素の初回表示時のみ実行される処理である。
             loadNodes: function(node, resolve) {
                 if (node.level === 0) {
                     return resolve(this.treeNodes.map(function(element) {
@@ -60,17 +53,12 @@
                     // 画面表示時にdefault-expandedした項目をハイライトする為の記載である。
                     this.$refs.tree.setCurrentKey(node.data.id);
 
-                    let graphRowData = this.pullAndUpdateData(node.data.id);
+                    // TODO JSONを取得する処理を追加する必要がある。
+                    let graphRowData = dummyData01;
                     return resolve(graphRowData.animes.map(function(element) {
                         return {id: node.data.id + '-' + element.id, label: element.title, isLeaf: true};
                     }));
                 }
-            },
-            pullAndUpdateData: function(animeId) {
-                if (animeId != this.currentAnimeListId) {
-                    this.$store.commit('updateBasedOnAnimeListId', animeId);
-                }
-                return this.$store.state.graphRowData;
             },
             handleNodeClick: function(node) {
                 let delimiterCount = String(node.id).split('-').length - 1;
@@ -84,8 +72,14 @@
                 if (delimiterCount === 2) {
                     this.$router.push('/detail/' + node.id.replace(/-/g, '/'));
                 }
-
-                this.pullAndUpdateData(node.id);
+            },
+            // TODO パスを監視してのanimeIdの更新に関して、別の場所に移動したい。
+            updateAnimeListIdFromPath() {
+                let animeId = this.pathYear + '-' + this.pathCour;
+                if (this.pathAnimeId) {
+                    animeId += '-' + this.pathAnimeId;
+                }
+                this.$store.commit('updateBasedOnAnimeListId', animeId);
             }
         }
     }
