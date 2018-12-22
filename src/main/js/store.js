@@ -48,26 +48,16 @@ const store = new Vuex.Store({
     state: {
         currentDisplayMethod: calculateLogics[0].label,
         sortedCours: (function() {
-            let yearSorted = cours.term.sort(function(x, y) {
+            return cours.term.sort(function(x, y) {
                 // 年に関して、降順にソートする。
-                if (x.year < y.year) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            });
-            let yearAndCourSorted = yearSorted.map(function(element) {
+                return x.year < y.year ? 1 : -1;
+            }).map(function(element) {
                 element.cours = element.cours.sort(function(x, y) {
                     // クールに関して、昇順にソートする。
-                    if (x > y) {
-                        return 1;
-                    } else {
-                        return -1;
-                    }
-                });
+                    return x > y ? 1 : -1;
+                })
                 return element;
             });
-            return yearAndCourSorted;
         }()),
         graphRowData: (function() {
             graphRowData = fetchGraphRowData();

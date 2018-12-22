@@ -3,12 +3,8 @@ export default {
     description: '「切った」でヒットしたツイート数 / 公式ハッシュタグでヒットしたツイート数 ',
     label: 'gave_up_and_hash_tag',
     takeSortLogic: function(a, b){
-        if (a.gave_up_tweet_count / a.sampling_tweet_count <
-                b.gave_up_tweet_count / b.sampling_tweet_count) {
-            return 1;
-        } else {
-            return -1
-        }
+        return a.gave_up_tweet_count / a.sampling_tweet_count <
+                b.gave_up_tweet_count / b.sampling_tweet_count ? 1 : -1;
     },
     calculate: function(anime) {
         return anime.gave_up_tweet_count / anime.sampling_tweet_count;
