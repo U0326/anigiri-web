@@ -18,6 +18,29 @@
         components: {
             AnimeList,
             GraphNavigation
+        },
+        computed: {
+            paths() {return [this.pathYear, this.pathCour, this.pathAnimeId]},
+            pathYear() {return this.$route.params.year },
+            pathCour() {return this.$route.params.cour},
+            pathAnimeId() {return this.$route.params.animeId},
+        },
+        mounted: function() {
+            this.updateAnimeListIdFromPath();
+        },
+        watch: {
+            'paths': function() {
+                this.updateAnimeListIdFromPath();
+            }
+        },
+        methods: {
+            updateAnimeListIdFromPath() {
+                let animeId = this.pathYear + '-' + this.pathCour;
+                if (this.pathAnimeId) {
+                    animeId += '-' + this.pathAnimeId;
+                }
+                this.$store.commit('updateBasedOnAnimeListId', animeId);
+            }
         }
     }
 </script>

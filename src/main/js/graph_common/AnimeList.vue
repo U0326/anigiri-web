@@ -15,24 +15,18 @@
         },
         computed: {
             treeNodes() {return this.$store.state.sortedCours},
-            currentAnimeListId() {return this.$store.state.animeListId},
-            paths() {return [this.pathYear, this.pathCour, this.pathAnimeId]},
-            pathYear() {return this.$route.params.year },
-            pathCour() {return this.$route.params.cour},
-            pathAnimeId() {return this.$route.params.animeId},
+            animeListId() {return this.$store.state.animeListId},
         },
         mounted: function() {
-            this.expandedKeys = [this.pathYear, this.pathYear + '-' + this.pathCour ];
-            this.updateAnimeListIdFromPath();
+            this.expandedKeys = [this.animeListId.split('-')[0],
+                    this.animeListId.split('-')[0] + '-' + this.animeListId.split('-')[1]];
         },
         watch: {
-            'currentAnimeListId': function() {
-                this.$refs.tree.setCurrentKey(this.currentAnimeListId);
+            'animeListId': function() {
+                this.$refs.tree.setCurrentKey(this.animeListId);
+                this.expandedKeys = [this.animeListId.split('-')[0],
+                        this.animeListId.split('-')[0] + '-' + this.animeListId.split('-')[1]];
             },
-            'paths': function() {
-                this.expandedKeys = [this.pathYear, this.pathYear + '-' + this.pathCour ];
-                this.updateAnimeListIdFromPath();
-            }
         },
         methods: {
             // ツリー要素の初回表示時のみ実行される処理である。
@@ -73,14 +67,6 @@
                     this.$router.push('/detail/' + node.id.replace(/-/g, '/'));
                 }
             },
-            // TODO パスを監視してのanimeIdの更新に関して、別の場所に移動したい。
-            updateAnimeListIdFromPath() {
-                let animeId = this.pathYear + '-' + this.pathCour;
-                if (this.pathAnimeId) {
-                    animeId += '-' + this.pathAnimeId;
-                }
-                this.$store.commit('updateBasedOnAnimeListId', animeId);
-            }
         }
     }
 </script>
