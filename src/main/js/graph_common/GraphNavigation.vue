@@ -1,10 +1,10 @@
 <template>
     <div>
         <div>
-            <el-button v-if="hasNext" type="primary" icon="el-icon-arrow-left">次のクール</el-button>
+            <el-button v-if="hasNext" type="primary" icon="el-icon-arrow-left">次へ</el-button>
             <span>{{ graphTitle }}</span>
-            <el-button type="primary">
-                    前のクール<i class="el-icon-arrow-right el-icon-right"></i></el-button>
+            <el-button v-if="hasPrev" type="primary">前へ
+                    <i class="el-icon-arrow-right el-icon-right" /></el-button>
         </div>
         <div>
             <el-radio-group v-model="currentTabLabel" style="margin-bottom: 30px;">
@@ -30,12 +30,12 @@
             this.calculateLogics = calculateLogics;
         },
         computed: {
-            // TODO 以下動的に取得できるようにする必要がある。
+            // TODO 今後機能追加を行う。
             hasNext: function() {
                 return false;
             },
             hasPrev: function() {
-                return true;
+                return false;
             },
             graphTitle: function() {
                 return this.$store.state.graphTitle;
