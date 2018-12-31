@@ -1,6 +1,7 @@
 # 開発環境特有のファイル, フォルダを除外する。
+.DS_Store
 .idea
 .gradle/
 node_modules/
 build/
-src/main/resources/static/
+src/main/resources/static/js

@@ -3,6 +3,7 @@
     import zoom from 'chartjs-plugin-zoom';
     import calculateLogics from './calculate_logics';
 
+    const GRAPH_COLORS = '#ffeaff';
     export default {
         extends: Bar,
         data: function() {
@@ -19,10 +20,10 @@
         },
         computed: {
             graphRowData() {
-                return this.$store.state.graphRowData
+                return this.$store.state.graphRowData;
             },
             animeListId() {
-                return this.$store.state.animeListId
+                return this.$store.state.animeListId;
             },
             calculateLogic() {
                 return calculateLogics.find((logic) => {
@@ -59,6 +60,15 @@
                 throw new Error("This is not implemented.");
             },
             prepareData(sortedData) {
+                let chartData = this.doPrepareData(sortedData);
+                let colors = [];
+                for (let i = 0; i < chartData.datasets[0].data.length; i++) {
+                    colors.push(GRAPH_COLORS);
+                }
+                chartData.datasets[0].backgroundColor = colors;
+                return chartData;
+            },
+            doPrepareData(sortedData) {
                 throw new Error("This is not implemented.");
             },
             prepareOptions(chartData) {

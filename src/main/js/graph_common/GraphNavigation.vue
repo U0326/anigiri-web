@@ -2,7 +2,7 @@
     <div>
         <div>
             <el-button v-if="hasNext" type="primary" icon="el-icon-arrow-left">次へ</el-button>
-            <span>{{ graphTitle }}</span>
+            <p>{{ graphTitle }}</p>
             <el-button v-if="hasPrev" type="primary">前へ
                     <i class="el-icon-arrow-right el-icon-right" /></el-button>
         </div>

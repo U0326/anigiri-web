@@ -1,6 +1,6 @@
 <template>
     <el-tree :props="props" node-key="id" :default-expanded-keys="expandedKeys" :highlight-current=true
-            @node-click="handleNodeClick" ref="tree" :load="loadNodes" lazy />
+            @node-click="handleNodeClick" ref="tree" :load="loadNodes" lazy accordion />
 </template>
 
 <script>

@@ -17,7 +17,7 @@
                     }
                 });
             },
-            prepareData(sortedData) {
+            doPrepareData(sortedData) {
                 let labels = [];
                 let data = [];
                 for (let element of sortedData) {

@@ -9,8 +9,9 @@ module.exports = {
     },
     module: {
         rules: [
-            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            { test: /\.css$/, loader: 'style-loader!css-loader!sass-loader' },
             { test: /\.(woff|woff2|eot|ttf|svg)$/, loader: 'file-loader?name=../font/[name].[ext]' },
+            { test: /\.(jpg|png)$/, loaders: 'url-loader' },
             { test: /\.vue$/, loader: 'vue-loader' }
         ]
     }

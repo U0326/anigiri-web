@@ -1,5 +1,5 @@
 export default {
-    title: '「切った」ツイート / 公式ハッシュタグツイート',
+    title: '「切った」 / 公式ハッシュタグツイート',
     description: '「切った」でヒットしたツイート数 / 公式ハッシュタグでヒットしたツイート数 ',
     label: 'gave_up_and_hash_tag',
     takeSortLogic: function(a, b){

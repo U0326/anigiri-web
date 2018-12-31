@@ -12,7 +12,7 @@
             sortData(graphRowData) {
                 return this.graphRowData.animes.sort(this.calculateLogic.takeSortLogic);
             },
-            prepareData(sortedData) {
+            doPrepareData(sortedData) {
                 let labels = [];
                 let datasets = [];
                 for (let element of sortedData) {
