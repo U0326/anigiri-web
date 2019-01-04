@@ -2,35 +2,18 @@ import 'babel-polyfill'
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { createAnimeListId, createCourLabel } from './util.js';
-
-// TODO 以下ダミーデータの為、削除する必要あり。↓
-import dummyData01 from '../../test/resources/2018_04_cour.json';
-import dummyData02 from '../../test/resources/20xx_xx_cour.json';
-import dummyData03 from '../../test/resources/2018_04_00001.json';
-import cours from '../../test/resources/cours.json';
-import dummyData from '../../test/resources/2018_04_cour.json'
-// TODO 以下ダミーデータの為、削除する必要あり。↑
-
+import { createAnimeListId, createCourLabel, retrieveJson } from './util.js';
 import calculateLogics from './graph_common/calculate_logics';
 
 Vue.use(Vuex);
 
 function fetchGraphRowData(animeListId) {
-    if (animeListId) {
-        let ids = animeListId.split('-');
-        // animeIdも含まれていた場合
-        if (ids.length == 3) {
-            // TODO 適切なデータを取得する。
-            return dummyData03;
-        } else {
-            // TODO 適切なデータを取得する。
-            return dummyData02;
-        }
+    let ids = animeListId.split('-');
+    // animeIdも含まれていた場合
+    if (ids.length == 3) {
+        return retrieveJson('/anime/' + ids[2]);
     } else {
-        // 初回表示時
-        // TODO 今期のデータを取得する。
-        return dummyData01;
+        return retrieveJson('/cour/' + ids[0] + '/' + ids[1]);
     }
 }
 function createGraphTitle(graphRowData) {
@@ -42,45 +25,49 @@ function createGraphTitle(graphRowData) {
     }
 }
 
-// TODO 削除出来ないか検討する。利用個所はstate中のanimeListId, graphTitleである。
-let graphRowData;
 const store = new Vuex.Store({
     state: {
         currentDisplayMethod: calculateLogics[0].label,
-        sortedCours: (function() {
-            return cours.term.sort(function(x, y) {
-                // 年に関して、降順にソートする。
-                return x.year < y.year ? 1 : -1;
-            }).map(function(element) {
-                element.cours = element.cours.sort(function(x, y) {
-                    // クールに関して、昇順にソートする。
-                    return x > y ? 1 : -1;
-                })
-                return element;
-            });
-        }()),
-        graphRowData: (function() {
-            graphRowData = fetchGraphRowData();
-            return graphRowData;
-        }()),
-        animeListId: (function() {
-            return createAnimeListId(graphRowData);
-        }()),
-        graphTitle: createGraphTitle(graphRowData)
+        allCours: null,
+        graphRowData: null,
+        animeListId: null,
+        graphTitle: null
     },
     mutations: {
+        updateAllCours: function(state, payload) {
+            state.allCours = payload.term.sort(
+                    function(x, y) {
+                        // 年に関して、降順にソートする。
+                        return x.year < y.year ? 1 : -1;
+                    }).map(function(element) {
+                        element.cours = element.cours.sort(function(x, y) {
+                            // クールに関して、昇順にソートする。
+                            return x > y ? 1 : -1;
+                        })
+                        return element;
+                    });
+        },
         updateCurrentDisplayMethod: function(state, payload) {
             state.currentDisplayMethod = payload;
         },
-        updateBasedOnAnimeListId: function(state, payload) {
-            let newAnimeListId = payload;
-            if (state.animeListId == newAnimeListId) return;
-            let graphRowData = fetchGraphRowData(newAnimeListId);
-
-            state.animeListId = newAnimeListId;
-            state.graphRowData = graphRowData;
-            state.graphTitle = createGraphTitle(graphRowData);
+        updateAnimeListId: function(state, payload) {
+            state.animeListId = payload;
         },
+        updateGraphRowData: function(state, payload) {
+            state.graphRowData = payload;
+        },
+        updateGraphTitle: function(state, payload) {
+            state.graphTitle = payload;
+        }
+    },
+    actions: {
+        async updateBasedOnAnimeListId(context, animeListId) {
+            let newAnimeListId = animeListId;
+            context.commit('updateAnimeListId', newAnimeListId)
+            let graphRowData = await fetchGraphRowData(newAnimeListId);
+            context.commit('updateGraphRowData', graphRowData);
+            context.commit('updateGraphTitle', createGraphTitle(graphRowData));
+        }
     }
 });
 

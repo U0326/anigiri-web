@@ -11,9 +11,9 @@ const router = new VueRouter({
     routes: [
         { path: '/', redirect: to => {
             let today = new Date();
-            return '/term/' + today.getFullYear() + '/' + Math.floor(today.getMonth() / 3 + 1);
+            return '/cour/' + today.getFullYear() + '/' + Math.floor(today.getMonth() / 3 + 1);
         }},
-        { path: '/term/:year/:cour', component: CourGraph },
+        { path: '/cour/:year/:cour', component: CourGraph },
         { path: '/detail/:year/:cour/:animeId', component: DetailGraph }
     ]
 })

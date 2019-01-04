@@ -5,15 +5,15 @@
             <h1>今期最も切られているアニメはこれだ！</h1>
             <h2>タイトル + 「切った」でヒットしたツイートを集計中、</br>効率的なアニメライフを送ろう。</h2>
         </div>
-        <div id="content">
-            <div id="side-menu">
-                <anime-list />
+            <div id="content">
+                <div id="side-menu">
+                    <anime-list />
+                </div>
+                <div id="graph" v-loading="loadingGraphData">
+                    <graph-navigation />
+                    <router-view />
+                </div>
             </div>
-            <div id="graph">
-                <graph-navigation />
-                <router-view />
-            </div>
-        </div>
         <div id="footer">
             <span id="copyright">© 2019 Garaku Project.</span>
         </div>
@@ -29,11 +29,17 @@
             AnimeList,
             GraphNavigation
         },
+        data: function() {
+            return {
+                loadingGraphData: null
+            }
+        },
         computed: {
             paths() {return [this.pathYear, this.pathCour, this.pathAnimeId]},
             pathYear() {return this.$route.params.year },
             pathCour() {return this.$route.params.cour},
             pathAnimeId() {return this.$route.params.animeId},
+            graphRowData() {return this.$store.state.graphRowData}
         },
         mounted: function() {
             this.updateAnimeListIdFromPath();
@@ -41,15 +47,19 @@
         watch: {
             'paths': function() {
                 this.updateAnimeListIdFromPath();
+            },
+            'graphRowData': function() {
+                this.loadingGraphData = false;
             }
         },
         methods: {
             updateAnimeListIdFromPath() {
+                this.loadingGraphData = true;
                 let animeId = this.pathYear + '-' + this.pathCour;
                 if (this.pathAnimeId) {
                     animeId += '-' + this.pathAnimeId;
                 }
-                this.$store.commit('updateBasedOnAnimeListId', animeId);
+                this.$store.dispatch('updateBasedOnAnimeListId', animeId);
             }
         }
     }

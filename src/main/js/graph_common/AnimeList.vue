@@ -1,55 +1,69 @@
 <template>
-    <el-tree :props="props" node-key="id" :default-expanded-keys="expandedKeys" :highlight-current=true
-            @node-click="handleNodeClick" ref="tree" :load="loadNodes" lazy accordion />
+    <el-tree v-loading="treeLoading" :props="props" node-key="id" :default-expanded-keys="expandedKeys"
+    :highlight-current=true @node-click="handleNodeClick" ref="tree" :load="loadNodes" lazy accordion />
 </template>
 
 <script>
-    import dummyData01 from '../../../test/resources/2018_04_cour.json';
-    import { createCourLabel } from '../util.js';
+    import { createCourLabel, retrieveJson } from '../util.js';
     export default {
         data: function() {
             return {
+                treeLoading: true,
                 props: { id: 'id', label: 'label', children: 'children', isLeaf: 'isLeaf' },
-                expandedKeys: null,
+                expandedKeys: null
             }
         },
         computed: {
-            treeNodes() {return this.$store.state.sortedCours},
+            treeNodes() {return this.$store.state.allCours},
             animeListId() {return this.$store.state.animeListId},
-        },
-        mounted: function() {
-            this.expandedKeys = [this.animeListId.split('-')[0],
-                    this.animeListId.split('-')[0] + '-' + this.animeListId.split('-')[1]];
+            ids() {return this.animeListId.split('-')},
         },
         watch: {
             'animeListId': function() {
+                if (!this.treeNodes) return;
+                // 初回表示の後の場合
+                this.expandedKeys = [this.ids[0], this.ids[0] + '-' + this.ids[1]];
                 this.$refs.tree.setCurrentKey(this.animeListId);
-                this.expandedKeys = [this.animeListId.split('-')[0],
-                        this.animeListId.split('-')[0] + '-' + this.animeListId.split('-')[1]];
             },
         },
         methods: {
-            // ツリー要素の初回表示時のみ実行される処理である。
-            loadNodes: function(node, resolve) {
+            loadNodes: async function(node, resolve) {
+                // 初回表示の場合
+                if (!this.treeNodes) {
+                    await this.$store.commit('updateAllCours', await retrieveJson("/cours"));
+                    this.treeLoading = false;
+                }
+                // ルートの場合
                 if (node.level === 0) {
+                    // 年の表示が完了した後に以下実行する。
+                    this.$nextTick(function() {
+                        this.expandedKeys = [this.ids[0]];
+                    });
                     return resolve(this.treeNodes.map(function(element) {
                         return {id: element.year, label: element.year + '年'};
                     }));
                 }
+                // 年の場合
                 if (node.level === 1) {
+                    // クールの表示が完了した後に以下実行する。
+                    this.$nextTick(function() {
+                        this.expandedKeys = [this.ids[0], this.ids[0] + '-' + this.ids[1]];
+                        this.$refs.tree.setCurrentKey(this.animeListId);
+                    });
                     return resolve(this.treeNodes.find(function(element) {
                         return element.year === node.data.id;
                     }).cours.map(function(element) {
                         return {id: node.data.id + '-' + element, label: createCourLabel(element)}
                     }));
                 }
+                // クールの場合
                 if (node.level === 2) {
-                    // 画面表示時にdefault-expandedした項目をハイライトする為の記載である。
-                    this.$refs.tree.setCurrentKey(node.data.id);
-
-                    // TODO JSONを取得する処理を追加する必要がある。
-                    let graphRowData = dummyData01;
-                    return resolve(graphRowData.animes.map(function(element) {
+                    let graphRowData = await retrieveJson("/cour/" + this.ids[0] + '/' + this.ids[1]);
+                    // 各アニメの表示が完了した後に以下実行する。
+                    this.$nextTick(function() {
+                        this.$refs.tree.setCurrentKey(this.animeListId);
+                    });
+                    return resolve(graphRowData.animes.map((element) => {
                         return {id: node.data.id + '-' + element.id, label: element.title, isLeaf: true};
                     }));
                 }
@@ -60,7 +74,7 @@
                 if (delimiterCount === 0) return;
                 // '年'-'クール'を表すノードがクリックされた場合、各クールのグラフ表示画面に遷移する。
                 if (delimiterCount === 1) {
-                    this.$router.push('/term/' + node.id.replace(/-/g, '/'));
+                    this.$router.push('/cour/' + node.id.replace(/-/g, '/'));
                 }
                 // '年'-'クール'-'animeId'を表すノードがクリックされた場合、各アニメのグラフ表示画面に遷移する。
                 if (delimiterCount === 2) {

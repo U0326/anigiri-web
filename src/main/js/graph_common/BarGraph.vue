@@ -40,13 +40,14 @@
             'calculateLogic': function() {
                 this.callRenderChart(this.graphRowData);
             },
-            'animeListId': function() {
+            'graphRowData': function() {
                 this.callRenderChart(this.graphRowData);
             }
         },
         methods: {
             callRenderChart(graphRowData) {
                 // mountedのタイミングで描画を行う際に、データ取得が未完の可能性がある為、以下関数を設ける。
+                if (!this.graphRowData) return;
                 if (!this.isReadyData(graphRowData)) return;
                 let sortedData = this.sortData(this.graphRowData);
                 let chartData = this.prepareData(sortedData);
