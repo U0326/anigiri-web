@@ -11,9 +11,9 @@ function fetchGraphRowData(animeListId) {
     let ids = animeListId.split('-');
     // animeIdも含まれていた場合
     if (ids.length == 3) {
-        return retrieveJson('/anime/' + ids[2]);
+        return retrieveJson('/anime/' + ids[2], 'graphData');
     } else {
-        return retrieveJson('/cour/' + ids[0] + '/' + ids[1]);
+        return retrieveJson('/cour/' + ids[0] + '/' + ids[1], 'graphData');
     }
 }
 function createGraphTitle(graphRowData) {
@@ -31,7 +31,8 @@ const store = new Vuex.Store({
         allCours: null,
         graphRowData: null,
         animeListId: null,
-        graphTitle: null
+        graphTitle: null,
+        ajaxResult: {}
     },
     mutations: {
         updateAllCours: function(state, payload) {
@@ -58,6 +59,9 @@ const store = new Vuex.Store({
         },
         updateGraphTitle: function(state, payload) {
             state.graphTitle = payload;
+        },
+        updateAjaxResult: function(state, payload) {
+            state.ajaxResult = payload;
         }
     },
     actions: {
@@ -65,8 +69,15 @@ const store = new Vuex.Store({
             let newAnimeListId = animeListId;
             context.commit('updateAnimeListId', newAnimeListId)
             let graphRowData = await fetchGraphRowData(newAnimeListId);
+            if (!graphRowData) return;
             context.commit('updateGraphRowData', graphRowData);
             context.commit('updateGraphTitle', createGraphTitle(graphRowData));
+        },
+        reflectAjaxResult(context, { key, result }) {
+            let newAjaxResult = {};
+            Object.assign(newAjaxResult, context.state.ajaxResult);
+            newAjaxResult[key] = result;
+            context.commit('updateAjaxResult', newAjaxResult);
         }
     }
 });

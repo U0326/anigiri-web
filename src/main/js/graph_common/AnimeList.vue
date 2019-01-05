@@ -30,7 +30,7 @@
             loadNodes: async function(node, resolve) {
                 // 初回表示の場合
                 if (!this.treeNodes) {
-                    await this.$store.commit('updateAllCours', await retrieveJson("/cours"));
+                    this.$store.commit('updateAllCours', await retrieveJson('/cours', 'cours'));
                     this.treeLoading = false;
                 }
                 // ルートの場合
@@ -58,12 +58,13 @@
                 }
                 // クールの場合
                 if (node.level === 2) {
-                    let graphRowData = await retrieveJson("/cour/" + this.ids[0] + '/' + this.ids[1]);
+                    let animeList = await retrieveJson(
+                            '/cour/animeList/' + this.ids[0] + '/' + this.ids[1], 'animeList');
                     // 各アニメの表示が完了した後に以下実行する。
                     this.$nextTick(function() {
                         this.$refs.tree.setCurrentKey(this.animeListId);
                     });
-                    return resolve(graphRowData.animes.map((element) => {
+                    return resolve(animeList.animes.map((element) => {
                         return {id: node.data.id + '-' + element.id, label: element.title, isLeaf: true};
                     }));
                 }

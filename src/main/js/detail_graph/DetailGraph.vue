@@ -5,9 +5,6 @@
     export default {
         extends: BarGraph,
         methods: {
-            isReadyData(graphRowData) {
-                return Boolean(graphRowData.data);
-            },
             sortData(graphRowData) {
                 return this.graphRowData.data.sort(function(a, b) {
                     if (a.tweeted_date > b.tweeted_date) {

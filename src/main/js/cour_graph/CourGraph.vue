@@ -6,11 +6,8 @@
     export default {
         extends: BarGraph,
         methods: {
-            isReadyData(graphRowData) {
-                return Boolean(graphRowData.animes);
-            },
             sortData(graphRowData) {
-                return this.graphRowData.animes.sort(this.calculateLogic.takeSortLogic);
+                return this.graphRowData.data.sort(this.calculateLogic.takeSortLogic);
             },
             doPrepareData(sortedData) {
                 let labels = [];
@@ -34,8 +31,9 @@
                 return newOptions;
             },
             handleClick(event, element) {
+                // グラフ以外の場所がクリックされた場合は何もしない。
                 if (!element || element.length === 0) return;
-                let id = this.graphRowData.animes.find(function(anime) {
+                let id = this.graphRowData.data.find(function(anime) {
                     return anime.title === element[0]._model.label;
                 }).id;
                 let updatingAnimeListId = createAnimeListId(this.graphRowData) + '-' + id;

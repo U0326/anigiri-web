@@ -1,5 +1,7 @@
 <template>
     <div>
+        <el-alert v-if="hasError" title="データの読み込みに失敗しました。ページを再読み込みして下さい。"
+                type="error" center show-icon> </el-alert>
         <div id="header">
             <a href="/"><img src="images/logo.png"/></a>
             <h1>今期最も切られているアニメはこれだ！</h1>
@@ -39,7 +41,12 @@
             pathYear() {return this.$route.params.year },
             pathCour() {return this.$route.params.cour},
             pathAnimeId() {return this.$route.params.animeId},
-            graphRowData() {return this.$store.state.graphRowData}
+            graphRowData() {return this.$store.state.graphRowData},
+            hasError() {
+                let ajaxResult = this.$store.state.ajaxResult;
+                let errorOccurredKeys = Object.keys(ajaxResult).filter(key => !ajaxResult[key]);
+                return errorOccurredKeys.length > 0;
+            }
         },
         mounted: function() {
             this.updateAnimeListIdFromPath();

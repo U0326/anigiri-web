@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from './store';
 
 const httpClient = axios.create({
   baseURL: 'http://localhost:8080',
@@ -9,10 +10,15 @@ const httpClient = axios.create({
   responseType: 'json'
 });
 
-function retrieveJson(urlPath) {
+function retrieveJson(urlPath, dataName) {
     return httpClient.get(urlPath)
-            .then((res) => { return res.data; })
-            .catch(err => { });
+            .then((res) => {
+                store.dispatch('reflectAjaxResult', {key: dataName, result: true});
+                return res.data;
+            })
+            .catch(err => {
+                store.dispatch('reflectAjaxResult', {key: dataName, result: false})
+            });
 }
 
 function createAnimeListId (graphRowData) {
