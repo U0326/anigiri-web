@@ -1,0 +1,10 @@
+logging.level.org.springframework: DEBUG
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:13306/anigiri_db?autoReconnect=true&useSSL=false
+    username: anigiri
+    password: password
+    driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    database: MYSQL
+    show-sql: true
