@@ -103,6 +103,10 @@
                 margin-right: 20px
                 background-color: white
                 border-radius: 15px
+                .el-tree-node__label
+                    overflow: hidden
+                    white-space: nowrap
+                    text-overflow: ellipsis
             #graph
                 float: right
                 width: 680px

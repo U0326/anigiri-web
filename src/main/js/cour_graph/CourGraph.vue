@@ -25,6 +25,8 @@
             appendOptions(chartData, newOptions){
                 newOptions.scales.xAxes[0].ticks = {
                     autoSkip: false,
+                    maxRotation: 90,
+                    minRotation: 90,
                     min: chartData.labels[0],
                     max: chartData.labels[MAXIMUM_DISPLAY_COUNT]
                 };
