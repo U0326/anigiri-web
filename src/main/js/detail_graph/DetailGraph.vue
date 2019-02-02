@@ -7,7 +7,7 @@
         methods: {
             sortData(graphRowData) {
                 return this.graphRowData.data.sort(function(a, b) {
-                    if (a.tweeted_date > b.tweeted_date) {
+                    if (a.tweetedDate > b.tweetedDate) {
                         return 1;
                     } else {
                         return -1;
@@ -18,7 +18,7 @@
                 let labels = [];
                 let data = [];
                 for (let element of sortedData) {
-                    labels.push(element.tweeted_date);
+                    labels.push(element.tweetedDate);
                     data.push(this.calculateLogic.calculate(element));
                 }
                 return {

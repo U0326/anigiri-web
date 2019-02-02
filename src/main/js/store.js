@@ -36,7 +36,7 @@ const store = new Vuex.Store({
     },
     mutations: {
         updateAllCours: function(state, payload) {
-            state.allCours = payload.term.sort(
+            state.allCours = payload.terms.sort(
                     function(x, y) {
                         // 年に関して、降順にソートする。
                         return x.year < y.year ? 1 : -1;
