@@ -16,13 +16,13 @@
         computed: {
             treeNodes() {return this.$store.state.allCours},
             animeListId() {return this.$store.state.animeListId},
-            ids() {return this.animeListId.split('-')},
+            currentIds() {return this.animeListId.split('-')},
         },
         watch: {
             'animeListId': function() {
+                // 初回表示の場合は何もしない。
                 if (!this.treeNodes) return;
-                // 初回表示の後の場合
-                this.expandedKeys = [this.ids[0], this.ids[0] + '-' + this.ids[1]];
+                this.expandedKeys = [this.currentIds[0], this.currentIds[0] + '-' + this.currentIds[1]];
                 this.$refs.tree.setCurrentKey(this.animeListId);
             },
         },
@@ -33,21 +33,22 @@
                     this.$store.commit('updateAllCours', await retrieveJson('/cours', 'cours'));
                     this.treeLoading = false;
                 }
-                // ルートの場合
+                // 現在のノードが"ルート"の場合
                 if (node.level === 0) {
                     // 年の表示が完了した後に以下実行する。
                     this.$nextTick(function() {
-                        this.expandedKeys = [this.ids[0]];
+                        this.expandedKeys = [this.currentIds[0]];
                     });
                     return resolve(this.treeNodes.map(function(element) {
                         return {id: element.year, label: element.year + '年'};
                     }));
                 }
-                // 年の場合
+                // 現在のノードが"年"の場合
                 if (node.level === 1) {
                     // クールの表示が完了した後に以下実行する。
                     this.$nextTick(function() {
-                        this.expandedKeys = [this.ids[0], this.ids[0] + '-' + this.ids[1]];
+                        this.expandedKeys = [this.currentIds[0],
+                                this.currentIds[0] + '-' + this.currentIds[1]];
                         this.$refs.tree.setCurrentKey(this.animeListId);
                     });
                     return resolve(this.treeNodes.find(function(element) {
@@ -56,10 +57,11 @@
                         return {id: node.data.id + '-' + element, label: createCourLabel(element)}
                     }));
                 }
-                // クールの場合
+                // 現在のノードが"クール"の場合
                 if (node.level === 2) {
+                    let loadingIds = node.data.id.split('-');
                     let animeList = await retrieveJson(
-                            '/cour/animeList/' + this.ids[0] + '/' + this.ids[1], 'animeList');
+                            '/cour/animeList/' + loadingIds[0] + '/' + loadingIds[1], 'animeList');
                     // 各アニメの表示が完了した後に以下実行する。
                     this.$nextTick(function() {
                         this.$refs.tree.setCurrentKey(this.animeListId);

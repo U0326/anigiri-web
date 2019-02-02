@@ -3,7 +3,7 @@
     import zoom from 'chartjs-plugin-zoom';
     import calculateLogics from './calculate_logics';
 
-    const GRAPH_COLORS = '#ffeaff';
+    const GRAPH_COLOR = '#ffeaff';
     export default {
         extends: Bar,
         data: function() {
@@ -59,7 +59,7 @@
                 let chartData = this.doPrepareData(sortedData);
                 let colors = [];
                 for (let i = 0; i < chartData.datasets[0].data.length; i++) {
-                    colors.push(GRAPH_COLORS);
+                    colors.push(GRAPH_COLOR);
                 }
                 chartData.datasets[0].backgroundColor = colors;
                 return chartData;
