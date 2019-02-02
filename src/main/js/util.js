@@ -1,8 +1,9 @@
 import axios from 'axios';
+import config from 'config';
 import store from './store';
 
 const httpClient = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: config.ajaxBaseURL,
   headers: {
     'Content-Type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest'
