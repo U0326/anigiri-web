@@ -43,7 +43,7 @@ dependencies {
     compileOnly('org.projectlombok:lombok')
     runtimeOnly('mysql:mysql-connector-java')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
-    apt "org.projectlombok:lombok:1.16.22"
+    apt "org.projectlombok:lombok:1.18.2"
 }
 
 bootJar {
