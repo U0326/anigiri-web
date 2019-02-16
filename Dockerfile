@@ -26,4 +26,6 @@ RUN apt-get install -y build-essential
 WORKDIR /opt/anigiri-web
 COPY ./ /opt/anigiri-web
 
+VOLUME /var/log/anigiri/
+
 CMD gradle bootRun
