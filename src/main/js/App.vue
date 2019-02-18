@@ -85,14 +85,14 @@
         font-family: -apple-system, BlinkMacSystemFont,  "游ゴシック体",  YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", Arial, Helvetica, "sans-serif"
 
         #header
-            height: 320px
+            height: 275px
             background: url('../resources/static/images/header.png') repeat-x
             text-align: center
             margin-bottom: 20px
             h1
                 font-family: "keifont"
         #content
-            min-height: calc(100vh - 340px - 150px)
+            min-height: calc(100vh - 295px - 150px)
             width: 980px
             margin: 0 auto
             overflow : hidden
