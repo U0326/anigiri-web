@@ -2,7 +2,7 @@ logging.level.org.springframework: DEBUG
 server.port: 8080
 spring:
   datasource:
-    url: jdbc:mysql://anigiri-db:3306/anigiri_db?autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:13306/anigiri_db?autoReconnect=true&useSSL=false
     username: anigiri
     password: password
     driverClassName: com.mysql.jdbc.Driver
